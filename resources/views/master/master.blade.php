@@ -79,12 +79,90 @@
                     <a class="nav-link" href="/">
                         <i class="ni ni-tv-2 text-primary"></i> Home
                     </a>
-                    <a class="nav-link" href="/">
-                        <i class="ni ni-tv-2 text-primary"></i> Home2
-                    </a>
                 </li>
             </ul>
-
+            @if(Auth::guard('admin')->check())
+                <hr class="my-3">
+                <h6 class="navbar-heading text-muted">Data Petugas</h6>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/menu/userList">
+                            <i class="ni ni-badge text-blue"></i> Daftar Petugas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/menu/addUserForm">
+                            <i class="ni ni-app text-blue"></i> Tambah Petugas
+                        </a>
+                    </li>
+                </ul>
+                <hr class="my-3">
+                <h6 class="navbar-heading text-muted">Data Siswa</h6>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/menu/userList">
+                            <i class="ni ni-badge text-blue"></i> Daftar Siswa
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/menu/addUserForm">
+                            <i class="ni ni-app text-blue"></i> Tambah Siswa
+                        </a>
+                    </li>
+                </ul>
+                <hr class="my-3">
+                <h6 class="navbar-heading text-muted">Data SPP</h6>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/menu/userList">
+                            <i class="ni ni-badge text-blue"></i> Daftar SPP
+                        </a>
+                    </li>
+                </ul>
+                <hr class="my-3">
+                <h6 class="navbar-heading text-muted">Data Kelas</h6>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/menu/userList">
+                            <i class="ni ni-badge text-blue"></i> Daftar Kelas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/menu/addUserForm">
+                            <i class="ni ni-app text-blue"></i> Tambah Kelas
+                        </a>
+                    </li>
+                </ul>
+            @endif
+            @if(Auth::guard('petugas')->check() || Auth::guard('admin')->check()  || Auth::guard('siswa')->check())
+                <hr class="my-3">
+                <h6 class="navbar-heading text-muted">Transaksi</h6>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/menu/addUserForm">
+                            <i class="ni ni-app text-blue"></i> History Pembayaran
+                        </a>
+                    </li>
+                    @if(Auth::guard('petugas')->check() || Auth::guard('admin')->check())
+                        <li class="nav-item">
+                            <a class="nav-link" href="/menu/userList">
+                                <i class="ni ni-badge text-blue"></i> Transaksi Pembayaran
+                            </a>
+                        </li>
+                    @endif
+                </ul>
+            @endif
+            @if(Auth::guard('admin')->check())
+                <hr class="my-3">
+                <h6 class="navbar-heading text-muted">Data Laporan</h6>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/menu/userList">
+                            <i class="ni ni-badge text-blue"></i> Generate Laporan
+                        </a>
+                    </li>
+                </ul>
+            @endif
         </div>
     </div>
 

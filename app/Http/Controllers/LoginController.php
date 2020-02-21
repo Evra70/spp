@@ -32,7 +32,7 @@ class LoginController extends Controller
 
     public function loginSiswa(Request $request){
         $this->validate($request,[
-            'nis_nisn' => 'required|min:5'
+            'nis_nisn' => 'required|min:5|numeric'
         ]);
         $nisNisn = $request->nis_nisn;
 
