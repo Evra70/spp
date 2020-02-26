@@ -19,3 +19,8 @@ Route::get('/admin','MenuController@home')->middleware('auth:admin');
 Route::get('/petugas','MenuController@home')->middleware('auth:petugas');
 Route::get('/siswa','MenuController@home')->middleware('auth:siswa');
 Route::get('/prosesLogout','LoginController@logout')->middleware('auth:admin,petugas,siswa');
+
+//Menu List
+Route::get('/menu/petugasList','MenuController@petugasList')->middleware('auth:admin');
+Route::get('/menu/siswaList','MenuController@siswaList')->middleware('auth:admin');
+Route::get('/menu/kelasList','MenuController@kelasList')->middleware('auth:admin');

@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\District;
+use App\Kelas;
 use App\Mapel;
+use App\Petugas;
 use App\Province;
 use App\Regency;
+use App\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class MenuController extends Controller
@@ -32,58 +36,25 @@ class MenuController extends Controller
         return view('home');
     }
 
-    public function dynamicDependent(Request $request)
+    public function petugasList()
     {
-        $select = $request->select;
-        $value = $request->value;
-        $data=[];
-        $init="";
-        if($select == 'province'){
-            $data = Regency::where('province_id',$value)->orderBy('name')->get();
-            $init = "Kabupaten";
-        }elseif ($select == 'regency'){
-            $data = District::where('regency_id',$value)->orderBy('name')->get();
-            $init = "Kecamatan";
-        }
-
-        $output ="<option value=''>--Pilih $init--</option>";
-        foreach ($data as $row){
-            $output .= "<option value='$row->id'>$row->name</option>";
-        }
-        echo $output;
+        $petugasList = Petugas::all();
+        return view('petugasList',["petugasList" => $petugasList]);
     }
 
-    public function getMapelListChange(Request $request)
+    public function kelasList()
     {
-        $kategori_id = $request->kategori_id;
-        $data=[];
-        $init="";
-
-            $data = Mapel::where('kategori_id',$kategori_id)->orderBy('nama_mapel')->get();
-
-        $output ="<option value=''>--Pilih Mapel--</option>";
-        foreach ($data as $row){
-            $output .= "<option value='$row->mapel_id'>$row->nama_mapel</option>";
-        }
-        echo $output;
+        $kelasList = Kelas::all();
+        return view('kelasList',["kelasList" => $kelasList]);
     }
 
-    public function kursus()
+    public function siswaList()
     {
-        $provinceList = Province::orderBy('name')->get();
-        return view('kursus',['provinceList' => $provinceList]);
-    }
-
-    public function kontak()
-    {
-        $provinceList = Province::orderBy('name')->get();
-        return view('kontak',['provinceList' => $provinceList]);
-    }
-
-    public function tentangKami()
-    {
-        $provinceList = Province::orderBy('name')->get();
-        return view('tentang_kami',['provinceList' => $provinceList]);
+        $siswaList = DB::table('t_siswa')
+                            ->join('t_kelas','t_siswa.id_kelas','t_kelas.id_kelas')
+                            ->select('t_siswa.*','t_kelas.nama_kelas','t_kelas.kompetensi_keahlian')
+                            ->get();
+        return view('siswaList',["siswaList" => $siswaList]);
     }
 
 }

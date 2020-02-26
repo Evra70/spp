@@ -86,7 +86,7 @@
                 <h6 class="navbar-heading text-muted">Data Petugas</h6>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/menu/userList">
+                        <a class="nav-link" href="/menu/petugasList">
                             <i class="ni ni-badge text-blue"></i> Daftar Petugas
                         </a>
                     </li>
@@ -100,7 +100,7 @@
                 <h6 class="navbar-heading text-muted">Data Siswa</h6>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/menu/userList">
+                        <a class="nav-link" href="/menu/siswaList">
                             <i class="ni ni-badge text-blue"></i> Daftar Siswa
                         </a>
                     </li>
@@ -111,19 +111,10 @@
                     </li>
                 </ul>
                 <hr class="my-3">
-                <h6 class="navbar-heading text-muted">Data SPP</h6>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/menu/userList">
-                            <i class="ni ni-badge text-blue"></i> Daftar SPP
-                        </a>
-                    </li>
-                </ul>
-                <hr class="my-3">
                 <h6 class="navbar-heading text-muted">Data Kelas</h6>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/menu/userList">
+                        <a class="nav-link" href="/menu/kelasList">
                             <i class="ni ni-badge text-blue"></i> Daftar Kelas
                         </a>
                     </li>
