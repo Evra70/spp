@@ -7,6 +7,7 @@ use App\Siswa;
 use Illuminate\Http\Request;
 use Alert;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class LoginController extends Controller
 {
@@ -16,7 +17,7 @@ class LoginController extends Controller
             'password' => 'required|min:5'
         ]);
         $username = $request->username;
-        $password = md5($request->password);
+        $password = base64_encode($request->password);
 
         $petugas = Petugas::where('username',$username)->where('password',$password)->first();
         if($petugas){

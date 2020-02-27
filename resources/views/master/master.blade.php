@@ -91,7 +91,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/menu/addUserForm">
+                        <a class="nav-link" href="/menu/formAddPetugas">
                             <i class="ni ni-app text-blue"></i> Tambah Petugas
                         </a>
                     </li>

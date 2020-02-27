@@ -51,8 +51,8 @@
                                         </a>
                                         @if(Auth::guard('admin')->check())
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                <a class="dropdown-item" href="/mapel/{{$petugas->id_siswa}}/delete">Delete</a>
-                                                <a class="dropdown-item" href="/menu/editMapelForm/{{$petugas->id_siswa}}">Edit</a>
+                                                <a class="dropdown-item" href="/proses/{{$petugas->id_petugas}}/deletePetugas">Delete</a>
+                                                <a class="dropdown-item" href="/proses/{{$petugas->id_petugas}}/formEditPetugas">Edit</a>
                                             </div>
                                         @endif
                                     </div>

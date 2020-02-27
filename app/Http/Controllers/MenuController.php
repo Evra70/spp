@@ -48,6 +48,11 @@ class MenuController extends Controller
         return view('kelasList',["kelasList" => $kelasList]);
     }
 
+    public function formAddPetugas()
+    {
+        return view('formAddPetugas');
+    }
+
     public function siswaList()
     {
         $siswaList = DB::table('t_siswa')
