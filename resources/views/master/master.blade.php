@@ -105,7 +105,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/menu/addUserForm">
+                        <a class="nav-link" href="/menu/formAddSiswa">
                             <i class="ni ni-app text-blue"></i> Tambah Siswa
                         </a>
                     </li>

@@ -25,9 +25,14 @@ Route::get('/menu/petugasList','MenuController@petugasList')->middleware('auth:a
 Route::get('/menu/siswaList','MenuController@siswaList')->middleware('auth:admin');
 Route::get('/menu/kelasList','MenuController@kelasList')->middleware('auth:admin');
 Route::get('/menu/formAddPetugas','MenuController@formAddPetugas')->middleware('auth:admin');
+Route::get('/menu/formAddSiswa','MenuController@formAddSiswa')->middleware('auth:admin');
 
 //Proses
 Route::post('/proses/addPetugas','PetugasController@prosesAddPetugas')->middleware('auth:admin');
 Route::get('/proses/{id_petugas}/deletePetugas','PetugasController@deletePetugas')->middleware('auth:admin');
 Route::get('/proses/{id_petugas}/formEditPetugas','PetugasController@formEditPetugas')->middleware('auth:admin');
 Route::post('/proses/editPetugas','PetugasController@prosesEditPetugas')->middleware('auth:admin');
+Route::post('/proses/addSiswa','SiswaController@prosesAddSiswa')->middleware('auth:admin');
+//Route::get('/proses/{id_petugas}/deletePetugas','PetugasController@deletePetugas')->middleware('auth:admin');
+//Route::get('/proses/{id_petugas}/formEditPetugas','PetugasController@formEditPetugas')->middleware('auth:admin');
+//Route::post('/proses/editPetugas','PetugasController@prosesEditPetugas')->middleware('auth:admin');
