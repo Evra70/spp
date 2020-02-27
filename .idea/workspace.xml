@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="365f97a5-ac43-46c1-833e-4dea397ef920" name="Default Changelist" comment="">
+<<<<<<< Updated upstream
       <change afterPath="$PROJECT_DIR$/app/Http/Controllers/PetugasController.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/resources/views/formAddPetugas.blade.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/resources/views/formEditPetugas.blade.php" afterDir="false" />
@@ -11,6 +12,11 @@
       <change beforePath="$PROJECT_DIR$/resources/views/master/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/master/master.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/petugasList.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/petugasList.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -133,11 +139,12 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\XII\laravel\spp" />
       <recent name="E:\laravel\spp\resources\views" />
       <recent name="E:\laravel\spp\app\Http\Controllers" />
       <recent name="E:\laravel\spp\app" />
@@ -181,7 +188,12 @@
       <workItem from="1582252643261" duration="1119000" />
       <workItem from="1582633926256" duration="76000" />
       <workItem from="1582634049638" duration="4579000" />
+<<<<<<< Updated upstream
       <workItem from="1582712295634" duration="12336000" />
+=======
+      <workItem from="1582679209921" duration="6834000" />
+      <workItem from="1582765221555" duration="1118000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
