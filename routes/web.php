@@ -33,6 +33,6 @@ Route::get('/proses/{id_petugas}/deletePetugas','PetugasController@deletePetugas
 Route::get('/proses/{id_petugas}/formEditPetugas','PetugasController@formEditPetugas')->middleware('auth:admin');
 Route::post('/proses/editPetugas','PetugasController@prosesEditPetugas')->middleware('auth:admin');
 Route::post('/proses/addSiswa','SiswaController@prosesAddSiswa')->middleware('auth:admin');
-//Route::get('/proses/{id_petugas}/deletePetugas','PetugasController@deletePetugas')->middleware('auth:admin');
-//Route::get('/proses/{id_petugas}/formEditPetugas','PetugasController@formEditPetugas')->middleware('auth:admin');
-//Route::post('/proses/editPetugas','PetugasController@prosesEditPetugas')->middleware('auth:admin');
+Route::get('/proses/{id_siswa}/deleteSiswa','SiswaController@deleteSiswa')->middleware('auth:admin');
+Route::get('/proses/{id_siswa}/formEditSiswa','SiswaController@formEditSiswa')->middleware('auth:admin');
+Route::post('/proses/editSiswa','SiswaController@prosesEditSiswa')->middleware('auth:admin');

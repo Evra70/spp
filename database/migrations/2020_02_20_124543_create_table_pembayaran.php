@@ -22,6 +22,7 @@ class CreateTablePembayaran extends Migration
             $table->string('tahun_bayar',4);
             $table->integer('id_spp');
             $table->integer('nominal');
+            $table->string('status_pembayaran',1)->default("N");
 
 //            $table->timestamps();
         });
