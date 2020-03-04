@@ -49,8 +49,8 @@
                                         </a>
                                         @if(Auth::guard('admin')->check())
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                <a class="dropdown-item" href="/mapel/{{$kelas->id_siswa}}/delete">Delete</a>
-                                                <a class="dropdown-item" href="/menu/editMapelForm/{{$kelas->id_siswa}}">Edit</a>
+                                                <a class="dropdown-item" href="/proses/{{$kelas->id_kelas}}/deleteKelas">Delete</a>
+                                                <a class="dropdown-item" href="/proses/{{$kelas->id_kelas}}/formEditKelas">Edit</a>
                                             </div>
                                         @endif
                                     </div>

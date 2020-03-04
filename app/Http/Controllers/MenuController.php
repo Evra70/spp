@@ -53,6 +53,11 @@ class MenuController extends Controller
         return view('formAddPetugas');
     }
 
+    public function formAddKelas()
+    {
+        return view('formAddKelas');
+    }
+
     public function formAddSiswa()
     {
         $kelasList = Kelas::all();

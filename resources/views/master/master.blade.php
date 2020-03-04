@@ -119,7 +119,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/menu/addUserForm">
+                        <a class="nav-link" href="/menu/formAddKelas">
                             <i class="ni ni-app text-blue"></i> Tambah Kelas
                         </a>
                     </li>
