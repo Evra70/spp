@@ -46,23 +46,52 @@
                             <td width="20%">: Rp.{{number_format($siswa->nominal,2,',','.')}}</td>
                         </tr>
                         <tr class="thead-light">
-                            <form>
-                                <td colspan="2"><b>Pembayaran Spp</b></td>
-                                <td colspan="2">: {{$siswa->nis}}</td>
+                            <form method="post" action="/proses/prosesPembayaranSpp">
+                                {{csrf_field()}}
+                                <input type="hidden" name="nisn" value="{{$siswa->nisn}}">
+                                <input type="hidden" name="id_spp" value="{{$siswa->id_spp}}">
+                                <input type="hidden" name="id_siswa" value="{{$siswa->id_siswa}}">
+                                <input type="hidden" name="nominal" value="{{$siswa->nominal}}">
+                                <th style="text-align: center;" colspan="2"><b>Pembayaran Spp</b></th>
+                                <th colspan="1">
+                                    <select name="bulan" class="form-control form-control-alternative">
+                                        @foreach($bulan as $b)
+                                        <option value="{{$b}}">{{$b}}</option>
+                                        @endforeach
+                                    </select>
+                                </th>
+                                <th colspan="1" style="text-align: center;">
+                                    <input type="submit" value="Bayar" class="btn btn-success">
+                                </th>
                             </form>
                         </tr>
                     </table>
+                    <hr>
+                    @php $no=1; @endphp
                     <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                         <tr>
                             <th scope="col">No</th>
-                            <th scope="col">Nama Kelas</th>
-                            <th scope="col">Kompetensi Keahlian</th>
+                            <th scope="col">Nama Petugas</th>
+                            <th scope="col">Tanggal</th>
+                            <th scope="col">Bulan</th>
+                            <th scope="col">Tahun</th>
+                            <th scope="col">Nominal</th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
-
+                            @foreach($pembayaran as $bayar)
+                                <tr>
+                                    <td>{{$no++}}</td>
+                                    <td>{{$bayar->nama_petugas}}</td>
+                                    <td>{{date("d-m-Y",strtotime($bayar->tgl_bayar))}}</td>
+                                    <td>{{$bayar->bulan_bayar}}</td>
+                                    <td>{{$bayar->tahun_bayar}}</td>
+                                    <td>Rp.{{number_format($bayar->nominal,2,',','.')}}</td>
+                                    <td>AKSI</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

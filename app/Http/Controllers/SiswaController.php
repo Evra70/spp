@@ -35,7 +35,7 @@ class SiswaController extends Controller
             'kelas' => 'required',
             'nominal' => 'required|numeric',
             'alamat' => 'required|min:5',
-            'no_telp' => 'required|numeric',
+            'no_telp' => 'required|min:1|max:13',
         ]);
 
         $findSiswa = Siswa::where('nisn',$request->nisn)->orWhere("nis",$request->nis)->first();
