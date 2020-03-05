@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -129,18 +128,18 @@
                 <hr class="my-3">
                 <h6 class="navbar-heading text-muted">Transaksi</h6>
                 <ul class="navbar-nav">
+                    @if(Auth::guard('petugas')->check() || Auth::guard('admin')->check())
+                        <li class="nav-item">
+                            <a class="nav-link" href="/menu/transaksi">
+                                <i class="ni ni-badge text-blue"></i>Pembayaran SPP
+                            </a>
+                        </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" href="/menu/addUserForm">
                             <i class="ni ni-app text-blue"></i> History Pembayaran
                         </a>
                     </li>
-                    @if(Auth::guard('petugas')->check() || Auth::guard('admin')->check())
-                        <li class="nav-item">
-                            <a class="nav-link" href="/menu/userList">
-                                <i class="ni ni-badge text-blue"></i> Transaksi Pembayaran
-                            </a>
-                        </li>
-                    @endif
                 </ul>
             @endif
             @if(Auth::guard('admin')->check())

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
-class SiswaController extends Controller
+class TransaksiController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -122,8 +122,7 @@ class SiswaController extends Controller
                     ->join('t_spp','t_siswa.id_spp','t_spp.id_spp')
                     ->where('t_siswa.id_siswa',$id_siswa)
                     ->first();
-        $kelasList = Kelas::all();
-        return view('formEditSiswa',['kelasList' => $kelasList,'siswa' => $siswa]);
+        return view('formEditSiswa',['siswa' => $siswa]);
     }
 
 }
