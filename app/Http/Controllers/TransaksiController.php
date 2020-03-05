@@ -115,14 +115,30 @@ class TransaksiController extends Controller
         return redirect()->back();
     }
 
-    public function formEditSiswa($id_siswa)
+    public function formPembayaran($id_siswa)
     {
         $siswa = DB::table('t_siswa')
                     ->join('t_kelas','t_siswa.id_kelas','t_kelas.id_kelas')
                     ->join('t_spp','t_siswa.id_spp','t_spp.id_spp')
                     ->where('t_siswa.id_siswa',$id_siswa)
                     ->first();
-        return view('formEditSiswa',['siswa' => $siswa]);
+        $mon = [
+            "01"=> "Januari", "05"=>"Mei", "09"=>"September",
+            "02"=> "Februari", "06"=>"Juni", "10"=>"Oktober",
+            "03"=> "Maret", "07"=>"Juli", "11"=>"November",
+            "04"=> "April", "08"=>"Agustus", "12"=>"Desember"
+            ];
+        $bulan =[""];
+        $awal="2020-05-01";
+        $date="";
+        for($i=-1;$i<11;$i++){
+           $date = date('m',strtotime("+$i month","20200501"));
+           $bulan = array_push($bulan,$mon[$date],1);
+
+        }
+        return json_encode($bulan);
+//        return $bulan;
+//        return view('formPembayaran',['siswa' => $siswa]);
     }
 
 }
