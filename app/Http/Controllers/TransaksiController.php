@@ -25,93 +25,41 @@ class TransaksiController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function prosesAddSiswa(Request $request)
+    public function prosesPembayaranSpp(Request $r)
     {
-        $this->validate($request,[
-            'nama' => 'required|min:4',
-            'nisn' => 'required|min:8',
-            'nis' => 'required|min:6',
-            'tahun' => 'required',
-            'kelas' => 'required',
-            'nominal' => 'required|numeric',
-            'alamat' => 'required|min:5',
-            'no_telp' => 'required|numeric',
-        ]);
-
-        $findSiswa = Siswa::where('nisn',$request->nisn)->orWhere("nis",$request->nis)->first();
-        if ($findSiswa){
-            Alert()->warning("Nisn: $request->nisn \nNis: $request->nis \nTelah Digunakan !","Maaf")->autoclose(2000);
-            return redirect()->back();
-        }else{
-            $spp = new Spp();
-            $spp->tahun = $request->tahun;
-            $spp->nominal = $request->nominal;
-            $spp->save();
-
-            $siswa = new Siswa();
-            $siswa->nisn = $request->nisn;
-            $siswa->nis = $request->nis;
-            $siswa->nama = $request->nama;
-            $siswa->no_telp = $request->no_telp;
-            $siswa->alamat = $request->alamat;
-            $siswa->id_kelas = $request->kelas;
-            $siswa->id_spp = $spp->id_spp;
-            $siswa->save();
-
-            Alert()->success("Siswa Berhasil di Tambahkan !","Sukses")->autoclose(2000);
-            return redirect('/menu/siswaList');
-
-        }
+        $pembayaran = new Pembayaran();
+        $pembayaran->id_petugas = Auth::id();
+        $pembayaran->nisn = $r->nisn;
+        $pembayaran->tgl_bayar = Date("Ymd");
+        $pembayaran->bulan_bayar = $r->bulan;
+        $pembayaran->tahun_bayar = date("Y");
+        $pembayaran->id_spp = $r->id_spp;
+        $pembayaran->nominal = $r->nominal;
+        $pembayaran->save();
+            Alert()->success("Pembayaran Berhasil di Lakukan !","Sukses")->autoclose(2000);
+            return redirect("/proses/$r->id_siswa/formPembayaran");
 
     }
 
-    public function prosesEditSiswa(Request $request)
+    public function editPembayaranSiswa(Request $r)
     {
-        $this->validate($request,[
-            'nama' => 'required|min:4',
-            'nisn' => 'required|min:8',
-            'nis' => 'required|min:6',
-            'tahun' => 'required',
-            'kelas' => 'required',
+        $this->validate($r,[
             'nominal' => 'required|numeric',
-            'alamat' => 'required|min:5',
-            'no_telp' => 'required|numeric',
         ]);
-
-        $findSiswa = Siswa::where('nisn',$request->nisn)->orWhere('nis',$request->nis)->get();
-        $siswa = Siswa::find($request->id_siswa);
-            if (count($findSiswa) > 1){
-                Alert()->warning("NISN: $request->nisn \n NIS: $request->nis Telah Digunakan !","Maaf")->autoclose(2000);
+        $bayar=Pembayaran::find($r->id_pembayaran);
+        $bayar->nominal = $r->nominal;
+        $bayar->save();
+                Alert()->success("Pembayaran Berhasil di Ubah !","Sukses")->autoclose(1500);
                 return redirect()->back();
-            }else{
-
-            $spp = Spp::find($siswa->id_spp);
-            $spp->tahun = $request->tahun;
-            $spp->nominal = $request->nominal;
-            $spp->save();
-
-            $siswa->nisn = $request->nisn;
-            $siswa->nis = $request->nis;
-            $siswa->nama = $request->nama;
-            $siswa->no_telp = $request->no_telp;
-            $siswa->alamat = $request->alamat;
-            $siswa->id_kelas = $request->kelas;
-            $siswa->id_spp = $spp->id_spp;
-            $siswa->save();
-
-                Alert()->success("Siswa Berhasil di Edit !","Sukses")->autoclose(2000);
-                return redirect('/menu/siswaList');
-
-            }
 
     }
 
-    public function deleteSiswa($id_siswa)
+    public function prosesDeletePembayaran($id_pembayaran)
     {
-        $siswa = Siswa::find($id_siswa);
-        $siswa->delete();
+        $bayar = Pembayaran::find($id_pembayaran);
+        $bayar->delete();
 
-        Alert()->success("Data Siswa Berhasil di Hapus !","Sukses")->autoclose(2000);
+        Alert()->success("Transaksi Berhasil di Hapus !","Sukses")->autoclose(1500);
         return redirect()->back();
     }
 
@@ -122,6 +70,7 @@ class TransaksiController extends Controller
                     ->join('t_spp','t_siswa.id_spp','t_spp.id_spp')
                     ->where('t_siswa.id_siswa',$id_siswa)
                     ->first();
+
         $mon = [
             "01"=> "Januari", "05"=>"Mei", "09"=>"September",
             "02"=> "Februari", "06"=>"Juni", "10"=>"Oktober",
@@ -133,12 +82,29 @@ class TransaksiController extends Controller
         $date="";
         for($i=-1;$i<11;$i++){
            $date = date('m',strtotime("+$i month","20200501"));
-           $bulan = array_push($bulan,$mon[$date]);
+           array_push($bulan,$mon[$date]);
+        }
+        $pembayaran = DB::table('t_pembayaran')
+                        ->join("t_petugas","t_pembayaran.id_petugas","t_petugas.id_petugas")
+                        ->where("t_pembayaran.nisn",$siswa->nisn)
+                        ->select('t_pembayaran.*','t_petugas.nama_petugas')
+                        ->get();
+
+        $bulanPembayaran = [];
+        foreach ($pembayaran as $p){
+            array_push($bulanPembayaran,$p->bulan_bayar);
+        }
+
+        $bulan =[];
+        for($i=-1;$i<11;$i++){
+           $date = date('m',strtotime("+$i month","20200501"));
+           array_push($bulan,$mon[$date]);
 
         }
-        return json_encode($bulan);
-//        return $bulan;
-//        return view('formPembayaran',['siswa' => $siswa]);
+
+        $bulan = array_diff($bulan,$bulanPembayaran);
+
+        return view('formPembayaran',['siswa' => $siswa,'bulan'=>$bulan,'pembayaran'=>$pembayaran]);
     }
 
 }

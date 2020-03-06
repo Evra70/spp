@@ -18,11 +18,10 @@ class CreateTablePembayaran extends Migration
             $table->integer('id_petugas');
             $table->string('nisn',10);
             $table->date('tgl_bayar');
-            $table->string('bulan_bayar',8);
+            $table->string('bulan_bayar',10);
             $table->string('tahun_bayar',4);
             $table->integer('id_spp');
             $table->integer('nominal');
-            $table->string('status_pembayaran',1)->default("N");
 
 //            $table->timestamps();
         });
