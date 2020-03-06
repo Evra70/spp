@@ -128,12 +128,12 @@ class TransaksiController extends Controller
             "03"=> "Maret", "07"=>"Juli", "11"=>"November",
             "04"=> "April", "08"=>"Agustus", "12"=>"Desember"
             ];
-        $bulan =[""];
+        $bulan =array();
         $awal="2020-05-01";
         $date="";
         for($i=-1;$i<11;$i++){
            $date = date('m',strtotime("+$i month","20200501"));
-           $bulan = array_push($bulan,$mon[$date],1);
+           $bulan = array_push($bulan,$mon[$date]);
 
         }
         return json_encode($bulan);
