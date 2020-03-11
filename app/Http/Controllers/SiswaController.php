@@ -12,6 +12,7 @@ use Alert;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use App\TahunAjaran;
 
 class SiswaController extends Controller
 {
@@ -43,6 +44,16 @@ class SiswaController extends Controller
             Alert()->warning("Nisn: $request->nisn \nNis: $request->nis \nTelah Digunakan !","Maaf")->autoclose(2000);
             return redirect()->back();
         }else{
+
+            $mon = [
+                "01"=> "Januari", "05"=>"Mei", "09"=>"September",
+                "02"=> "Februari", "06"=>"Juni", "10"=>"Oktober",
+                "03"=> "Maret", "07"=>"Juli", "11"=>"November",
+                "04"=> "April", "08"=>"Agustus", "12"=>"Desember"
+                ];
+            $tahun = substr($request->tahun,0,4);
+            $awal="$tahun-07-01";
+
             $spp = new Spp();
             $spp->tahun = $request->tahun;
             $spp->nominal = $request->nominal;
@@ -57,6 +68,21 @@ class SiswaController extends Controller
             $siswa->id_kelas = $request->kelas;
             $siswa->id_spp = $spp->id_spp;
             $siswa->save();
+
+            for ($i=0; $i < 12 ; $i++) { 
+                $tempo = date('m',strtotime("+$i month",strtotime($awal)));
+                $tahun = date('Y',strtotime("+$i month",strtotime($awal)));
+                $bulan=$mon[$tempo];
+
+                $pembayaran = new Pembayaran();
+                $pembayaran->nisn = $siswa->nisn;
+                $pembayaran->tgl_bayar = "00000000";
+                $pembayaran->bulan_bayar = $bulan;
+                $pembayaran->tahun_bayar = $tahun;
+                $pembayaran->id_spp = $spp->id_spp;
+                $pembayaran->nominal = $spp->nominal;
+                $pembayaran->save();
+            }
 
             Alert()->success("Siswa Berhasil di Tambahkan !","Sukses")->autoclose(2000);
             return redirect('/menu/siswaList');
@@ -109,6 +135,9 @@ class SiswaController extends Controller
     public function deleteSiswa($id_siswa)
     {
         $siswa = Siswa::find($id_siswa);
+        DB::table('t_pembayaran')->where('nisn',$siswa->nisn)->delete();
+        $spp = Spp::find($siswa->id_spp);
+        $spp->delete();
         $siswa->delete();
 
         Alert()->success("Data Siswa Berhasil di Hapus !","Sukses")->autoclose(2000);

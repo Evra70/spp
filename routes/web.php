@@ -43,6 +43,6 @@ Route::get('/proses/{id_kelas}/deleteKelas','KelasController@deleteKelas')->midd
 Route::get('/proses/{id_kelas}/formEditKelas','KelasController@formEditKelas')->middleware('auth:admin');
 Route::post('/proses/editKelas','KelasController@prosesEditKelas')->middleware('auth:admin');
 Route::get('/proses/{id_siswa}/formPembayaran','TransaksiController@formPembayaran')->middleware('auth:admin');
-Route::post('/proses/prosesPembayaranSpp','TransaksiController@prosesPembayaranSpp')->middleware('auth:admin');
-Route::get('/proses/{id_pembayaran}/prosesDeletePembayaran','TransaksiController@prosesDeletePembayaran')->middleware('auth:admin');
+Route::get('/proses/{id_pembayaran}/{id_siswa}/pembayaran','TransaksiController@prosesPembayaranSpp')->middleware('auth:admin');
 Route::post('/proses/editPembayaranSiswa','TransaksiController@editPembayaranSiswa')->middleware('auth:admin');
+Route::get('/proses/{id_pembayaran}/{id_siswa}/batalPembayaran','TransaksiController@prosesBatalPembayaranSpp')->middleware('auth:admin');

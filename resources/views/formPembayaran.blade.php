@@ -46,24 +46,7 @@
                             <td width="20%">: Rp.{{number_format($siswa->nominal,2,',','.')}}</td>
                         </tr>
                         <tr class="thead-light">
-                            <form method="post" action="/proses/prosesPembayaranSpp">
-                                {{csrf_field()}}
-                                <input type="hidden" name="nisn" value="{{$siswa->nisn}}">
-                                <input type="hidden" name="id_spp" value="{{$siswa->id_spp}}">
-                                <input type="hidden" name="id_siswa" value="{{$siswa->id_siswa}}">
-                                <input type="hidden" name="nominal" value="{{$siswa->nominal}}">
-                                <th style="text-align: center;" colspan="2"><b>Pembayaran Spp</b></th>
-                                <th colspan="1">
-                                    <select name="bulan" class="form-control form-control-alternative">
-                                        @foreach($bulan as $b)
-                                        <option value="{{$b}}">{{$b}}</option>
-                                        @endforeach
-                                    </select>
-                                </th>
-                                <th colspan="1" style="text-align: center;">
-                                    <input type="submit" value="Bayar" class="btn btn-success">
-                                </th>
-                            </form>
+                            
                         </tr>
                     </table>
                     <hr>
@@ -73,10 +56,10 @@
                         <tr>
                             <th scope="col">No</th>
                             <th scope="col">Nama Petugas</th>
-                            <th scope="col">Tanggal</th>
-                            <th scope="col">Bulan</th>
-                            <th scope="col">Tahun</th>
+                            <th scope="col">Tanggal Bayar</th>
+                            <th scope="col">Bulan Bayar</th>
                             <th scope="col">Nominal</th>
+                            <th scope="col">Status</th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
@@ -84,16 +67,26 @@
                             @foreach($pembayaran as $bayar)
                                 <tr>
                                     <td>{{$no++}}</td>
-                                    <td>{{$bayar->nama_petugas}}</td>
-                                    <td>{{date("d-m-Y",strtotime($bayar->tgl_bayar))}}</td>
-                                    <td>{{$bayar->bulan_bayar}}</td>
-                                    <td>{{$bayar->tahun_bayar}}</td>
+                                    <td>@if($bayar->nama_petugas == null) --NONE-- @else{{$bayar->nama_petugas}}@endif</td>
+                                    <td>@if($bayar->tgl_bayar == "00000000") --NONE-- @else{{date("d-m-Y",strtotime($bayar->tgl_bayar))}}@endif</td>
+                                    <td>{{$bayar->bulan_bayar}} {{$bayar->tahun_bayar}}</td>
                                     <td>Rp.{{number_format($bayar->nominal,2,',','.')}}</td>
                                     <td>
+                                        @if($bayar->status == "Y")
+                                            <a style='color:white;padding:3px;' class="btn-success">LUNAS</a>
+                                        @else
+                                            <a style='color:white;padding:3px;' class="btn-danger">BELUM LUNAS</a>
+                                        @endif
+                                    </td>
+                                    <td>
+                                    @if($bayar->status != "Y")
+                                        <a class="btn btn-success" href="/proses/{{$bayar->id_pembayaran}}/{{$siswa->id_siswa}}/pembayaran">Bayar</a>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter{{$bayar->id_pembayaran}}">
                                             Ubah
                                         </button>
-                                        <a class="btn btn-danger" href="/proses/{{$bayar->id_pembayaran}}/prosesDeletePembayaran">Hapus</a>
+                                    @else
+                                        <a class="btn btn-danger" href="/proses/{{$bayar->id_pembayaran}}/{{$siswa->id_siswa}}/batalPembayaran">Batal</a>
+                                    @endif
                                     </td>
                                 </tr>
                                 <div class="modal fade" id="exampleModalCenter{{$bayar->id_pembayaran}}" style="z-index: 9999991;" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

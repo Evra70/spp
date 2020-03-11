@@ -15,7 +15,7 @@ class CreateTableSpp extends Migration
     {
         Schema::create('t_spp', function (Blueprint $table) {
             $table->increments('id_spp');
-            $table->integer('tahun');
+            $table->string('tahun',10);
             $table->integer('nominal');
 
 //            $table->timestamps();

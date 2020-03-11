@@ -69,7 +69,7 @@
                                     <td>{{$siswa->nama_kelas}} - {{$siswa->kompetensi_keahlian}}</td>
                                     <td class="text-right">
                                         @if(Auth::guard('admin')->check())
-                                            <a class="btn btn-success" href="/proses/{{$siswa->id_siswa}}/formPembayaran">Bayar</a>
+                                            <a class="btn btn-info" href="/proses/{{$siswa->id_siswa}}/formPembayaran">Transaksi</a>
                                         @endif
                                     </td>
                                 </tr>

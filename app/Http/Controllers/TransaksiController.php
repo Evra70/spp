@@ -25,19 +25,26 @@ class TransaksiController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function prosesPembayaranSpp(Request $r)
+
+    public function prosesBatalPembayaranSpp($id_pembayaran,$id_siswa){
+        $pembayaran =Pembayaran::find($id_pembayaran);
+        $pembayaran->id_petugas = -1;
+        $pembayaran->status = "N";
+        $pembayaran->tgl_bayar = "00000000";
+        $pembayaran->save();
+            Alert()->success("Pembayaran Berhasil di Batalkan !","Sukses")->autoclose(2000);
+            return redirect("/proses/$id_siswa/formPembayaran");
+    }
+
+    public function prosesPembayaranSpp($id_pembayaran,$id_siswa)
     {
-        $pembayaran = new Pembayaran();
+        $pembayaran =Pembayaran::find($id_pembayaran);
         $pembayaran->id_petugas = Auth::id();
-        $pembayaran->nisn = $r->nisn;
-        $pembayaran->tgl_bayar = Date("Ymd");
-        $pembayaran->bulan_bayar = $r->bulan;
-        $pembayaran->tahun_bayar = date("Y");
-        $pembayaran->id_spp = $r->id_spp;
-        $pembayaran->nominal = $r->nominal;
+        $pembayaran->status = "Y";
+        $pembayaran->tgl_bayar = date("Ymd");
         $pembayaran->save();
             Alert()->success("Pembayaran Berhasil di Lakukan !","Sukses")->autoclose(2000);
-            return redirect("/proses/$r->id_siswa/formPembayaran");
+            return redirect("/proses/$id_siswa/formPembayaran");
 
     }
 
@@ -71,40 +78,13 @@ class TransaksiController extends Controller
                     ->where('t_siswa.id_siswa',$id_siswa)
                     ->first();
 
-        $mon = [
-            "01"=> "Januari", "05"=>"Mei", "09"=>"September",
-            "02"=> "Februari", "06"=>"Juni", "10"=>"Oktober",
-            "03"=> "Maret", "07"=>"Juli", "11"=>"November",
-            "04"=> "April", "08"=>"Agustus", "12"=>"Desember"
-            ];
-        $bulan =array();
-        $awal="2020-05-01";
-        $date="";
-        for($i=-1;$i<11;$i++){
-           $date = date('m',strtotime("+$i month","20200501"));
-           array_push($bulan,$mon[$date]);
-        }
         $pembayaran = DB::table('t_pembayaran')
-                        ->join("t_petugas","t_pembayaran.id_petugas","t_petugas.id_petugas")
+                        ->leftJoin("t_petugas","t_pembayaran.id_petugas","t_petugas.id_petugas")
                         ->where("t_pembayaran.nisn",$siswa->nisn)
                         ->select('t_pembayaran.*','t_petugas.nama_petugas')
                         ->get();
 
-        $bulanPembayaran = [];
-        foreach ($pembayaran as $p){
-            array_push($bulanPembayaran,$p->bulan_bayar);
-        }
-
-        $bulan =[];
-        for($i=-1;$i<11;$i++){
-           $date = date('m',strtotime("+$i month","20200501"));
-           array_push($bulan,$mon[$date]);
-
-        }
-
-        $bulan = array_diff($bulan,$bulanPembayaran);
-
-        return view('formPembayaran',['siswa' => $siswa,'bulan'=>$bulan,'pembayaran'=>$pembayaran]);
+        return view('formPembayaran',['siswa' => $siswa,'pembayaran'=>$pembayaran]);
     }
 
 }
