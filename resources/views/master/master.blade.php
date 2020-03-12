@@ -122,6 +122,11 @@
                             <i class="ni ni-app text-blue"></i> Tambah Kelas
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/menu/kenaikanKelas">
+                            <i class="ni ni-app text-blue"></i> Kenaikan Kelas
+                        </a>
+                    </li>
                 </ul>
             @endif
             @if(Auth::guard('petugas')->check() || Auth::guard('admin')->check()  || Auth::guard('siswa')->check())

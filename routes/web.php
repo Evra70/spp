@@ -28,6 +28,7 @@ Route::get('/menu/formAddPetugas','MenuController@formAddPetugas')->middleware('
 Route::get('/menu/formAddSiswa','MenuController@formAddSiswa')->middleware('auth:admin');
 Route::get('/menu/formAddKelas','MenuController@formAddKelas')->middleware('auth:admin');
 Route::get('/menu/transaksi','MenuController@transaksiSiswaList')->middleware('auth:admin');
+Route::get('/menu/kenaikanKelas','MenuController@kenaikanKelasList')->middleware('auth:admin');
 
 //Proses
 Route::post('/proses/addPetugas','PetugasController@prosesAddPetugas')->middleware('auth:admin');

@@ -57,6 +57,16 @@ class MenuController extends Controller
         return view('transaksiSiswaList',["siswaList" => $siswaList]);
     }
 
+    public function kenaikanKelasList()
+    {
+        $siswaList = DB::table('t_siswa')
+            ->join('t_kelas','t_siswa.id_kelas','t_kelas.id_kelas')
+            ->select('t_siswa.*','t_kelas.nama_kelas','t_kelas.kompetensi_keahlian')
+            ->get();
+        $kelasList = Kelas::all();
+        return view('kenaikanKelasList',["siswaList" => $siswaList,"kelasList"=>$kelasList]);
+    }
+
     public function formAddPetugas()
     {
         return view('formAddPetugas');
