@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Kelas;
 use App\Mapel;
 use App\Spp;
+use App\Siswa;
 use Illuminate\Http\Request;
 use Alert;
 use Illuminate\Support\Facades\DB;
@@ -73,7 +74,7 @@ class KelasController extends Controller
             }
 
     }
-
+    
     public function deleteKelas($id_kelas)
     {
         $kelas = Kelas::find($id_kelas);
@@ -81,6 +82,21 @@ class KelasController extends Controller
 
         Alert()->success("Data Kelas Berhasil di Hapus !","Sukses")->autoclose(2000);
         return redirect()->back();
+    }
+
+    public function kenaikanKelas(Request $r)
+    {
+       
+        foreach($r->check_id as $id){
+            $siswa = Siswa::find($id);
+            $siswa->id_kelas = $r->kelas_tujuan;
+            $siswa->save();
+            $spp = Spp::find($siswa->id_spp);
+            $spp->tahun = $r->tahun;
+            $spp->save();
+        }
+        Alert()->success("Siswa Berhasil Naik Kelas !","Sukses")->autoclose(2000);
+        return redirect('/menu/siswaList');
     }
 
     public function formEditKelas($id_kelas)

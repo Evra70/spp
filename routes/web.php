@@ -47,3 +47,4 @@ Route::get('/proses/{id_siswa}/formPembayaran','TransaksiController@formPembayar
 Route::get('/proses/{id_pembayaran}/{id_siswa}/pembayaran','TransaksiController@prosesPembayaranSpp')->middleware('auth:admin');
 Route::post('/proses/editPembayaranSiswa','TransaksiController@editPembayaranSiswa')->middleware('auth:admin');
 Route::get('/proses/{id_pembayaran}/{id_siswa}/batalPembayaran','TransaksiController@prosesBatalPembayaranSpp')->middleware('auth:admin');
+Route::post('/proses/kenaikanKelas','KelasController@kenaikanKelas')->middleware('auth:admin');
